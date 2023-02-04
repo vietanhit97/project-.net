@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .bg-login-image {
+        background: none;
+        background-position: center !important;
+        background-size: cover !important;
+    }
+
+    .mg-auto {
+        margin: auto;
+    }
+</style>
+
+<div class="container">
+    
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="p-5">
+                                <div class="brand-logo text-center d-none d-lg-block bg-login-image">
+                                    <img src="~/TemplateAdmin/img/lottefinance.png">
+                                </div>
+                                <h4></h4>
+                                <div class="user col-md-12 justify-content-center">
+                                    <div class="form-group col-md-6 mg-auto">
+                                        <input type="text" class="form-control" id="userNameLogin" aria-describedby="emailHelp" placeholder="Nhập tên tài khoản">
+                                    </div>
+                                    <br />
+                                    <div class="form-group col-md-6 mg-auto">
+                                        <input type="password" class="form-control" id="passwordLogin" placeholder="Nhập mật khẩu">
+                                    </div>
+                                    <br />
+                                    <div class="form-group col-md-6 mg-auto">
+                                        <button class="btn btn-primary col-md-12" onclick="btnLogin()">
+                                            Đăng nhập
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/ContentAdmin/js/Login.js"></script>
+}

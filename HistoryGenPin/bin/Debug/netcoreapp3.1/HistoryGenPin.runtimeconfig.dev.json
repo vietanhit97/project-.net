@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\aorac\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\aorac\\.nuget\\packages"
+    ]
+  }
+}

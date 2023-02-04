@@ -1,0 +1,186 @@
+﻿@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .btn-icon {
+        margin-right: 5px;
+        font-size: 0.7rem;
+    }
+</style>
+
+<body id="page-top" style="overflow-y:hidden">
+    <script>
+        localStorage.setItem("vinhms_customer_info", JSON.stringify({
+        customer_name: {
+            value: "hungnt",
+            isDisable : true
+        },
+        email: {
+            value: "hungnt@zxjka.com",
+            isDisable: false
+        },
+        phone: {
+            value: "dà",
+            isDisable: false
+        },
+        address: {
+            value: "adsfsadf",
+            isDisable: false
+        },
+        }));
+</script>
+
+    <div id="basebs_webchat_plugin" uuid="1229b2ab-93c2-427a-88f3-b737fafaca93"></div>
+
+    <script src="http://localhost:3000/webchat/webchat-plugin.js"></script>
+
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTableAccount" width="100%" cellspacing="0">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <!-- Modal CreateAccount -->
+    <div class="modal fade" id="modal_create_account" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Thêm mới</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_add_account">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="email1">Tên tài khoản:</label>
+                                <input type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="--Nhập tên tài khoản--">
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordCreate">Mật khẩu:</label>
+                                <input type="password" class="form-control" id="passwordCreate" placeholder="--Nhập mật khẩu--">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPasswordCreate">Xác nhận mật khẩu:</label>
+                                <input type="password" class="form-control" id="confirmPasswordCreate" placeholder="--Nhập lại mật khẩu--">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Gán quyền:</label>
+                                <select class="form-control select2" name="lstRole" id="lstRole">
+                                    <option value="">--Chọn--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="createAccount()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal EditAccount -->
+    <div class="modal fade" id="modal_edit_account" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Chỉnh sửa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_edit_account">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên tài khoản:</label>
+                                <input type="text" class="form-control" id="userNameEdit" placeholder="--Nhập tên tài khoản--">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Gán quyền:</label>
+                                <select class="form-control select2" name="lstRoleEdit" id="lstRoleEdit">
+                                    <option value="">--Chọn--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="editAccount()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal DeleteAccount -->
+    <div class="modal fade" id="modal_delete_account" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Xóa tài khoản</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_delete_account">
+                        <div class="modal-body">
+                            Xác nhận xóa thông tin này?
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="deleteAccount()">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ChangePassword -->
+    <div class="modal fade" id="modal_change_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Đổi mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_change_password">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="passwordChange">Mật khẩu mới:</label>
+                                <input type="password" class="form-control" id="passwordChange" placeholder="--Nhập mật khẩu--">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPasswordChange">Xác nhận mật khẩu:</label>
+                                <input type="password" class="form-control" id="confirmPasswordChange" placeholder="--Nhập lại mật khẩu--">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="assignRoleAccount()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script src="~/ContentAdmin/js/AccountManagement.js"></script>
+    }
+</body>
